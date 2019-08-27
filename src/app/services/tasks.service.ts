@@ -10,13 +10,13 @@ export class TasksService {
   taskList: Task[] = []; 
 
   constructor( private http: HttpClient ) {
-    this.readTasks();
   }
 
-  private readTasks() {
-    this.http.get(this.APIENDPOINT + 'read.php').subscribe( (tasks: Task[] ) => {
+  readTasks() {
+    this.http.get(this.APIENDPOINT + 'read.php')
+      .subscribe( (tasks: Task[] ) => {
       this.taskList = tasks;
-      console.log(this.taskList);
+      //console.log(this.taskList);
     } );
   }
 }

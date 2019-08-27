@@ -1,17 +1,17 @@
+<h2> Create Task</h2>
 <!-- form -->
 <form>
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label for="title">Title</label>
+    <input [(ngModel)] = task.title   type="text" class="form-control" id="title" placeholder="Enter title">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="body">Body</label>
+    <input [(ngModel)] = task.body type="text" class="form-control" id="body" placeholder="Enter body">
   </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input [(ngModel)] = task.author type="text" class="form-control" id="author" placeholder="Enter author">
   </div>
-  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  <button (click)="saveTask()" class="btn btn-primary btn-block">Create</button>
 </form>

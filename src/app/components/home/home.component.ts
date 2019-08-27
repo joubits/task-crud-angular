@@ -8,7 +8,9 @@ import { TasksService } from '../../services/tasks.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor( private taskService: TasksService  ) { }
+  constructor( private taskService: TasksService  ) {
+    taskService.readTasks();
+  }
 
   ngOnInit() {
   }
