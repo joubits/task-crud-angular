@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../interfaces/task';
+import { TasksService } from '../../services/tasks.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -7,16 +9,55 @@ import { Task } from '../../interfaces/task';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  task: Task
+  task: Task = {
+    title: '',
+    body: '',
+    author: '',
+    category_id: 0
+  };
+  id: any;
+  editing:boolean = false;
+  constructor( private taskService: TasksService, private activatedRoute: ActivatedRoute  ) {
+    this.id = this.activatedRoute.snapshot.params['id'];
+    if(this.id){
+      this.editing = true;
+      this.taskService.readTask(this.id);
+      this.task = taskService.task;
 
-  constructor() { }
+    }else {
+      this.editing = false;
+    }
+    console.log(this.id);
+  }
 
   ngOnInit() {
   }
-  
-  // Save Task
-  saveTask(){
 
+  saveTask($event) {
+    console.log("Se va a guardar tarea?");
+    $event.preventDefault();
+    if(this.editing) {
+      this.taskService.put(this.task).subscribe( (data)=> {
+        alert("Task is updated");
+        console.log(data);
+      }, (error) => { 
+        console.log(error);
+        alert("An error happend");
+      });
+    } else {
+      if(this.task){
+        this.taskService.save(this.task).subscribe( (data)=> {
+          alert("Task is created");
+          console.log(data);
+        }, (error) => { 
+          console.log(error);
+          alert("An error happend");
+        });
+      }
+    }
+
+    
+    
   }
 
 }

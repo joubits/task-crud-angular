@@ -15,4 +15,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  delete(id) {
+    //console.log(id);
+    this.taskService.delete(id);
+  }
+
 }

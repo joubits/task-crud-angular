@@ -1,6 +1,6 @@
 <h2> Create Task</h2>
 <!-- form -->
-<form>
+<div>
   <div class="form-group">
     <label for="title">Title</label>
     <input [(ngModel)] = task.title   type="text" class="form-control" id="title" placeholder="Enter title">
@@ -13,5 +13,9 @@
     <label for="author">Author</label>
     <input [(ngModel)] = task.author type="text" class="form-control" id="author" placeholder="Enter author">
   </div>
-  <button (click)="saveTask()" class="btn btn-primary btn-block">Create</button>
-</form>
+  <div class="form-group">
+      <label for="category">Category</label>
+      <input [(ngModel)] = task.category_id type="text" class="form-control" id="category" placeholder="Enter category">
+    </div>
+  <button (click)="saveTask($event)" class="btn btn-primary btn-block">Create</button>
+</div>
