@@ -17,27 +17,27 @@ export class FormComponent implements OnInit {
   };
   id: any;
   editing:boolean = false;
+
   constructor( private taskService: TasksService, private activatedRoute: ActivatedRoute  ) {
     this.id = this.activatedRoute.snapshot.params['id'];
-    if(this.id){
-      this.editing = true;
+    //if(this.id){
+      //this.editing = true;
       this.taskService.readTask(this.id);
       this.task = taskService.task;
 
-    }else {
-      this.editing = false;
-    }
-    console.log(this.id);
+    //}else {
+      //this.editing = false;
+    //}
   }
 
   ngOnInit() {
   }
 
-  saveTask($event) {
+  saveTask($event, form) {
     console.log("Se va a guardar tarea?");
     $event.preventDefault();
-    if(this.editing) {
-      this.taskService.put(this.task).subscribe( (data)=> {
+    if(form.task.id) {
+      this.taskService.put(form.task).subscribe( (data)=> {
         alert("Task is updated");
         console.log(data);
       }, (error) => { 
@@ -45,18 +45,14 @@ export class FormComponent implements OnInit {
         alert("An error happend");
       });
     } else {
-      if(this.task){
-        this.taskService.save(this.task).subscribe( (data)=> {
-          alert("Task is created");
-          console.log(data);
-        }, (error) => { 
-          console.log(error);
-          alert("An error happend");
-        });
-      }
+      this.taskService.save(form.task).subscribe( (data)=> {
+        alert("Task is created");
+        console.log(data);
+      }, (error) => { 
+        console.log(error);
+        alert("An error happend");
+      });
     }
-
-    
     
   }
 

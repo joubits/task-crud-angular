@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 import { Task } from '../interfaces/task'
 
 @Injectable({
@@ -11,14 +14,6 @@ export class TasksService {
   task: Task;
 
   constructor( private http: HttpClient ) {
-  }
-
-  readTasks() {
-    this.http.get(this.APIENDPOINT + 'read.php')
-      .subscribe( (tasks: Task[] ) => {
-      this.taskList = tasks;
-      //console.log(this.taskList);
-    } );
   }
 
   save(task: Task) {
@@ -55,4 +50,35 @@ export class TasksService {
       });
       //console.log(this.taskList);
   }
+
+  // new version
+  getAll(): Observable<Task[]> {
+    return this.http.get(`${this.APIENDPOINT}/read.php`).pipe(
+      map((res: Task[]) => {
+        this.taskList = res;
+        return this.taskList;
+    }),
+    catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+   
+    // return an observable with a user friendly message
+    return throwError('Error! something went wrong.');
+  }
+
+  // store(taskSave: Task): Observable<Task[]> {
+  //   return this.http.post(`${this.APIENDPOINT}/create.php`, { data: taskSave })
+  //     .pipe(map((res) => {
+  //       this.cars.push(res['data']);
+  //       return this.cars;
+  //     }),
+  //     catchError(this.handleError));
+  // }
+
+  // save(task: Task) {
+  //   const headers = new HttpHeaders({'Content-Type': 'application/json'});
+  //   return this.http.post(this.APIENDPOINT + 'create.php', task, {headers: headers});
+  // }
 }

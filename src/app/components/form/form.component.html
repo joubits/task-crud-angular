@@ -1,21 +1,80 @@
 <h2> Create Task</h2>
-<!-- form -->
 <div>
   <div class="form-group">
     <label for="title">Title</label>
-    <input [(ngModel)] = task.title   type="text" class="form-control" id="title" placeholder="Enter title">
+    <input [(ngModel)]="task.title"   type="text" class="form-control" id="title" placeholder="Enter title">
   </div>
   <div class="form-group">
     <label for="body">Body</label>
-    <input [(ngModel)] = task.body type="text" class="form-control" id="body" placeholder="Enter body">
+    <input [(ngModel)]="task.body" type="text" class="form-control" id="body" placeholder="Enter body">
   </div>
   <div class="form-group">
     <label for="author">Author</label>
-    <input [(ngModel)] = task.author type="text" class="form-control" id="author" placeholder="Enter author">
+    <input [(ngModel)]="task.author" type="text" class="form-control" id="author" placeholder="Enter author">
   </div>
   <div class="form-group">
       <label for="category">Category</label>
-      <input [(ngModel)] = task.category_id type="text" class="form-control" id="category" placeholder="Enter category">
+      <input [(ngModel)]="task.category_id" type="text" class="form-control" id="category" placeholder="Enter category">
     </div>
-  <button (click)="saveTask($event)" class="btn btn-primary btn-block">Create</button>
+  <input type="button" (click)="saveTask($event)" class="btn btn-primary btn-block" value="Send" />
 </div>
+
+<!-- <div id="theForm">
+  <h3>Create Task</h3>
+  <form #f="ngForm" name="theForm" (submit)="addTask(f)" >
+    <div class="formGroup">
+      <label for="title">Title</label>
+      <input type="text"
+              class="form-control"
+              name="title"
+              [(ngModel)]="task.title"
+              required >
+      <span class="help-block danger" *ngIf="taskTitle.errors?.required && taskTitle.touched">
+          The task title is required
+        </span>
+    </div>
+
+    <div class="formGroup">
+      <label for="body">Body</label>
+      <textarea type="text"
+              class="form-control"
+              name="body"
+              [(ngModel)]="task.body"
+              #taskBody="ngModel"
+              required ></textarea>
+      <span class="help-block danger" *ngIf="taskBody.errors?.required && taskBody.touched">
+          The task body is required
+        </span>
+    </div>
+
+    <div class="formGroup">
+      <label for="author">Author</label>
+      <input type="text"
+                class="form-control"
+                name="author"
+                [(ngModel)]="task.author"
+                #taskAuthor="ngModel"
+                required >
+      <span class="help-block danger" *ngIf="taskAuthor.errors?.required && taskAuthor.touched">
+            The task author is required
+      </span>
+    </div>
+
+    <div class="formGroup">
+      <label for="category_id">Category Id</label>
+      <input type="number"
+                class="form-control"
+                name="category_id"
+                [(ngModel)]="task.category_id"
+                #taskCategoryId="ngModel"
+                required >
+      <span class="help-block danger" *ngIf="taskAuthor.errors?.required && taskAuthor.touched">
+            The task author is required
+      </span>
+    </div>
+    <br/>
+    <button class="btn btn-primary btn-block" [disabled]="f.invalid">Add</button>
+
+    
+  </form>
+</div> -->
